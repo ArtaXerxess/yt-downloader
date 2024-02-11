@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}index{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block body %}
+<div class="container my-5">
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <h3 class="text-body-emphasis">Download yt videos to mp4</h3>
+        <p class="lead">Go ahead! Don't be shy 😉</p>
+        <form class="d-flex" method="post" action="/">
+            <input class="form-control me-2" type="text" placeholder="enter a youtube video link here..."
+                name="raw_yt_link">
+            <button class="btn btn-outline-success" type="submit">Go!</button>
+        </form>
+        <br>
+        {% if flag %}
+        <img src="{{ thumbnail_url }}" alt="video thumbnail" style="max-width: 550px; height: auto;"><br>
+        <h3>{{ video_title }}</h3><br>
+        <div class="list-group">
+            <h5>Select Quality</h5><br>
+            <form action="/quality" method="post">
+                {% for i in streams %}
+                <button type="submit" class="list-group-item list-group-item-action" name="button" value="{{ i.itag }}">
+                    {{ i.res }}{{ i.fps }}fps
+                </button><br>
+                {% else %}
+                <li><em>no streams are available 😞</em></li><br>
+                {% endfor %}
+            </form>
+            {% if selected %}
+            <form action="{{ url_for('download_video') }}">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-primary">Download</button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    {{ error_message }}
+</div>
+{% endblock %}
