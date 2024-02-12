@@ -8,7 +8,6 @@
 .
 │   .dockerignore
 │   Dockerfile
-│   f.txt
 │   README.md
 │   requirements.txt
 │   
